@@ -28,8 +28,8 @@ $(document).ready(function(){
     e.perventDefault();
     $("iframe").attr("src", $(this).attr("data-bind: url"));
     $(".pop-up").fadein("fast");
-  };)
+  });
   $(".close").click(function(){
     $(this).parent.fadeout("fast");
-  };)
-};)
+  });
+});
