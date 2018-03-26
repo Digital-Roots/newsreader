@@ -8,9 +8,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#Politi").append("<h3><a href=" + "'" + link + "'" + ">" + title + "</a></h3><div>" + description + "</div>");
+          $("#Politi").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div>" + description + "</div>");
         }else{
-          $("#Politi").append("<h3><a href=" + "'" + link + "'" + ">" + title + "</a></h3><div> No summary given</div>");
+          $("#Politi").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div> No summary given</div>");
         }
       });
     }, "jsonp");
@@ -22,9 +22,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#Hill").append("<h3><a href=" + "'" + link + "'" + ">" + title + "</a></h3><div>" + description + "</div>");
+          $("#Hill").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div>" + description + "</div>");
         }else{
-          $("#Hill").append("<h3><a href=" + "'" + link + "'" + ">" + title + "</a></h3><div> No summary given</div>");
+          $("#Hill").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div> No summary given</div>");
         }
       });
     }, "jsonp");
@@ -36,14 +36,14 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#Wp").append("<h3><a href=" + "'" + link + "'" + ">" + title + "</a></h3><div>" + description + "</div>");
+          $("#Wp").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div>" + description + "</div>");
         }else{
-          $("#Wp").append("<h3><a href=" + "'" + link + "'" + ">" + title + "</a></h3><div> No summary given</div>");
+          $("#Wp").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div> No summary given</div>");
         }
       });
     }, "jsonp");
     console.log("got news");
   };
   window.onload = getNews;
-  setInterval(getNews, 960000);
+  setInterval(getNews, 420000);
 });

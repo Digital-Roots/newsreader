@@ -59,7 +59,8 @@ textarea {
 
   }
   [role="feed"]{
-
+    padding: 0 0.125rem;
+    text-align: center;
   }
 /* ==========================================================================
    Media Queries
