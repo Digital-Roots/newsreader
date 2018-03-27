@@ -8,9 +8,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#Politi").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div>" + description + "</div>");
+          $("#Politi").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + link + "'" + ">" + title + "</a></h4><p>" + description + "</p>");
         }else{
-          $("#Politi").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div> No summary given</div>");
+          $("#Politi").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + link + "'" + ">" + title + "</a></h4><p> No summary given</p>");
         }
       });
     }, "jsonp");
@@ -22,9 +22,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#Hill").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div>" + description + "</div>");
+          $("#Hill").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + "'" + link + "'" + ">" + title + "</a></h4><p>" + description + "</p>");
         }else{
-          $("#Hill").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div> No summary given</div>");
+          $("#Hill").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + "'" + link + "'" + ">" + title + "</a></h4><p> No summary given</p>");
         }
       });
     }, "jsonp");
@@ -36,9 +36,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#Wp").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div>" + description + "</div>");
+          $("#Wp").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + link + "'" + ">" + title + "</a></h4><p>" + description + "</p>");
         }else{
-          $("#Wp").append("<h4><a href=" + "'" + link + "'" + ">" + title + "</a></h4><div> No summary given</div>");
+          $("#Wp").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + "'" + link + "'" + ">" + title + "</a></h4><p> No summary given</p>");
         }
       });
     }, "jsonp");
