@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>News Readers Today</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/normalize.min.css">
@@ -20,38 +20,45 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <aside>
+          <section>
+            <iframe width="368" height="207" src="https://www.youtube.com/embed/Ga3maNZ0x0w" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <nav aria-describedby="stream navigation">
+              <button disabled onclick="openStream(bloomberg)">Bloomberg</button>
+              <button onclick="openStream(skyNews)">Sky News</button>
+              <button onclick="openStream(alJazeera)">Al Jazeera</button>
+            </nav>
+          </section>
+        </aside>
         <main>
           <section role="feed">
-            <header aria-labelledby="Poltico">
+            <header>
               <h2>Politico</h2>
             </header>
-            <article id='Politi'>
+            <article id='Politi' aria-live="polite" tabindex="1">
 
             </article>
           </section>
           <section role="feed">
-            <header aria-labelledby="The Hill">
+            <header>
               <h2>The Hill</h2>
             </header>
-            <article id='Hill'>
+            <article id='Hill' aria-live="polite" tabindex="1">
 
             </article>
           </section>
           <section role="feed">
-            <header aria-labelledby="Washington Post">
+            <header>
               <span><h2>Washington Post</h2>
               <h3>Politics</h3></span>
             </header>
-            <article id='Wp'>
+            <article id='Wp' aria-live="polite" tabindex="1">
 
             </article>
           </section>
         </main>
-        <nav aria-describedby="main navigation" aria-haspopup="true">
-
-        </nav>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
 
         <!-- <script src="js/plugins.js"></script> -->
         <script src="js/main.js"></script>

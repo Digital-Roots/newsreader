@@ -8,9 +8,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#Politi").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + link + "'" + ">" + title + "</a></h4><p>" + description + "</p>");
+          $("#Politi").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p>" + description + "</p>");
         }else{
-          $("#Politi").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + link + "'" + ">" + title + "</a></h4><p> No summary given</p>");
+          $("#Politi").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
         }
       });
     }, "jsonp");
@@ -22,13 +22,14 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#Hill").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + "'" + link + "'" + ">" + title + "</a></h4><p>" + description + "</p>");
+          $("#Hill").append("<h4><a rel=\" nofollow\"href=\" " + link + "  \">" + title + "</a></h4><p>" + description + "</p>");
         }else{
-          $("#Hill").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + "'" + link + "'" + ">" + title + "</a></h4><p> No summary given</p>");
+          $("#Hill").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
         }
       });
     }, "jsonp");
-    const yqlWp =  "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'http%3A%2F%2Ffeeds.washingtonpost.com%2Frss%2Fpolitics')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+    var WpArray = 'politics'
+    const yqlWp =  "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'http%3A%2F%2Ffeeds.washingtonpost.com%2Frss%2F" + WpArray + "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
     $.getJSON(yqlWp, function(Wp) {
       const res = Wp.query.results.item;
       res.forEach(function(x, y){
@@ -36,9 +37,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#Wp").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + link + "'" + ">" + title + "</a></h4><p>" + description + "</p>");
+          $("#Wp").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p>" + description + "</p>");
         }else{
-          $("#Wp").append("<h4><a rel=" + "'" + "nofollow" + "'" + "href=" + "'" + link + "'" + ">" + title + "</a></h4><p> No summary given</p>");
+          $("#Wp").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
         }
       });
     }, "jsonp");
@@ -47,3 +48,5 @@ $(document).ready(function() {
   window.onload = getNews;
   setInterval(getNews, 420000);
 });
+// <iframe width="560" height="315" src="https://www.youtube.com/embed/nVHt1_SWTZg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+// <iframe width="560" height="315" src="https://www.youtube.com/embed/XOacA3RYrXk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

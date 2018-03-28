@@ -55,17 +55,57 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+  *{
+    box-sizing: border-box;
+  }
+  body{
+    padding: 0 !important;
+    margin: 0 !important;
+  }
   main{
 
   }
+  article{
+    display: none;
+    visibility: hidden;
+  }
   [role="feed"]{
-    padding: 0 0.125rem;
-    text-align: center;
+
+  }
+  nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  nav button{
+    height: 6vh;
+    width: 9vw;
   }
 /* ==========================================================================
    Media Queries
    ========================================================================== */
 @media only screen and (min-width: 40rem){
+  body{
+    display: flex;
+    flex-flow: row;
+    height: 100vh;
+    overflow-y: hidden;
+    background-color: rgba(99, 99, 0, .07);
+  }
+  aside{
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+    width: 368px;
+    /* min-width: ;
+    max-width: ; */
+    border-right: lightgrey solid 3px;
+  }
+  aside + section{
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
   main{
     display: flex;
     flex-flow: row;
@@ -75,20 +115,20 @@ textarea {
     height: 100%;
   }
   [role="feed"]{
-    height: 90vh;
+    padding: 0 0.125rem;
+    text-align: center;
+    height: 100%;
     overflow-y: scroll;
     width: 20vw;
     min-width: 15rem;
     max-width: 17.375rem;
   }
+  article{
+    display: inline-block;
+    visibility: visible;
+  }
   nav{
-    height: 100%;
-    width: 100vw;
-    overflow: hidden;
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-    justify-content: center;
+
   }
 }
 @media print,
