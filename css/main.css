@@ -66,8 +66,7 @@ textarea {
 
   }
   article{
-    display: none;
-    visibility: hidden;
+    
   }
   [role="feed"]{
 
@@ -97,8 +96,6 @@ textarea {
     flex-flow: column;
     height: 100vh;
     width: 368px;
-    /* min-width: ;
-    max-width: ; */
     border-right: lightgrey solid 3px;
   }
   aside + section{
