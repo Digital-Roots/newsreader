@@ -66,8 +66,13 @@ textarea {
 
   }
   article{
-    display: none;
-    visibility: hidden;
+
+  }
+  aside{
+    display: flex;
+    flex-flow: column;
+    width: 368px;
+    height: 100%;
   }
   [role="feed"]{
 
@@ -78,6 +83,8 @@ textarea {
     justify-content: center;
   }
   nav button{
+    min-width: 26px;
+    min-height: 13px;
     height: 6vh;
     width: 9vw;
   }
@@ -93,13 +100,8 @@ textarea {
     background-color: rgba(99, 99, 0, .07);
   }
   aside{
-    display: flex;
-    flex-flow: column;
-    height: 100vh;
-    width: 368px;
-    /* min-width: ;
-    max-width: ; */
     border-right: lightgrey solid 3px;
+    height: 100vh;
   }
   aside + section{
     display: flex;
@@ -115,6 +117,7 @@ textarea {
     height: 100%;
   }
   [role="feed"]{
+    resize: horizontal;
     padding: 0 0.125rem;
     text-align: center;
     height: 100%;

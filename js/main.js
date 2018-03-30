@@ -28,9 +28,7 @@ $(document).ready(function() {
         }
       });
     }, "jsonp");
-    const wpArray = ['politics','opinions','business']
-    let secWp = wpArray[0];
-    let yqlWp =  "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'http%3A%2F%2Ffeeds.washingtonpost.com%2Frss%2F" + secWp + "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+    const yqlWp =  "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'http%3A%2F%2Ffeeds.washingtonpost.com%2Frss%2Fpolitics')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
     $.getJSON(yqlWp, function(wp) {
       const res = wp.query.results.item;
       res.forEach(function(x, y){
@@ -44,9 +42,7 @@ $(document).ready(function() {
         }
       });
     }, "jsonp");
-    const nytArray = 'Politics';
-    let secNyt = nytArray;
-    let yplNyt = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%20%3D%20'http%3A%2F%2Fwww.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2F" + secNyt + ".xml')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+    const yplNyt = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%20%3D%20'http%3A%2F%2Fwww.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2Fpolitics.xml')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
     $.getJSON(yplNyt, function(nyt) {
       const res = nyt.query.results.item;
       res.forEach(function(x, y){
@@ -64,10 +60,11 @@ $(document).ready(function() {
   };
   window.onload = getNews;
   setInterval(getNews, 420000);
-  function openStream(stream){
-
-  };
 });
-
-// <iframe width="560" height="315" src="https://www.youtube.com/embed/nVHt1_SWTZg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-// <iframe width="560" height="315" src="https://www.youtube.com/embed/XOacA3RYrXk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+const bloomberg = "https://www.youtube.com/embed/Ga3maNZ0x0w";
+const skyNews = "https://www.youtube.com/embed/XOacA3RYrXk";
+const alJazeera = "https://www.youtube.com/embed/nVHt1_SWTZg";
+function openStream(stream){
+  document.getElementById('videoStream').src = stream;
+};
+window.onload = openStream(bloomberg);
