@@ -60,11 +60,11 @@ $(document).ready(function() {
   };
   window.onload = getNews;
   setInterval(getNews, 420000);
-  function openStream(stream){
-    const bloomberg = "https://www.youtube.com/embed/Ga3maNZ0x0w";
-    const skyNews = "https://www.youtube.com/embed/XOacA3RYrXk";
-    const alJazeera = "https://www.youtube.com/embed/nVHt1_SWTZg";
-    document.getElementById('videoStream').src = stream;
-  };
-  window.onload = openStream(bloomberg);
 });
+const bloomberg = "https://www.youtube.com/embed/Ga3maNZ0x0w";
+const skyNews = "https://www.youtube.com/embed/XOacA3RYrXk";
+const alJazeera = "https://www.youtube.com/embed/nVHt1_SWTZg";
+function openStream(stream){
+  document.getElementById('videoStream').src = stream;
+};
+window.onload = openStream(bloomberg);
