@@ -71,16 +71,18 @@ textarea {
   aside{
     display: flex;
     flex-flow: column;
-    width: 368px;
+    min-width: 368px;
     height: 100%;
   }
   [role="feed"]{
-
+    display: none;
+    visibility: hidden;
   }
   nav{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-flow: row wrap;
   }
   nav button{
     min-width: 26px;
@@ -103,7 +105,7 @@ textarea {
     border-right: lightgrey solid 3px;
     height: 100vh;
   }
-  aside + section{
+  aside section{
     display: flex;
     flex-flow: column;
     height: 100%;
@@ -117,7 +119,8 @@ textarea {
     height: 100%;
   }
   [role="feed"]{
-    resize: horizontal;
+    display: block;
+    visibility: visible;
     padding: 0 0.125rem;
     text-align: center;
     height: 100%;
@@ -149,7 +152,15 @@ textarea {
     display: none !important;
     visibility: hidden;
 }
+.show-block{
 
+}
+.show-flex{
+
+}
+.show-inline{
+  
+}
 .visuallyhidden {
     border: 0;
     clip: rect(0 0 0 0);

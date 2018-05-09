@@ -27,11 +27,17 @@
     <section aria-describedby="news live stream">
       <iframe id="videoStream" width="368" height="207" src=" " frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       <nav aria-describedby="video stream navigation">
-        <button onclick="openStream(bloomberg)">Bloomberg</button>
-        <button onclick="openStream(skyNews)">Sky News</button>
-        <button onclick="openStream(alJazeera)">Al Jazeera</button>
+        <button onclick="openStream(tvBloomberg)">Bloomberg</button>
+        <button onclick="openStream(tvSkyNews)">Sky News</button>
+        <button onclick="openStream(tvAlJazeera)">Al Jazeera</button>
       </nav>
     </section>
+    <section role="navigation" aria-describedby="add other news feeds">
+      
+    </section>
+    <footer>
+      <a href="digitalroots.io">Built By digitalroots</a>
+    </footer>
   </aside>
   <main>
     <section role="feed">
@@ -39,7 +45,6 @@
         <h2>Politico</h2>
       </header>
       <article id='politi' aria-live="polite" tabindex="1">
-
       </article>
     </section>
     <section role="feed">
@@ -82,5 +87,5 @@
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
       ga('create','UA-XXXXX-X','auto');ga('send','pageview');
       </script>
-    </body>
-    </html>
+  </body>
+</html>
