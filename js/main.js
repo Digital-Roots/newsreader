@@ -1,3 +1,11 @@
+const tvBloomberg = "https://www.youtube.com/embed/Ga3maNZ0x0w?rel=0&autoplay=1";
+const tvSkyNews = "https://www.youtube.com/embed/XOacA3RYrXk?rel=0&autoplay=1";
+const tvAlJazeera = "https://players.brightcove.net/665003303001/SkrZHHcl_default/index.html?videoId=5467349513001";
+const openBloomberg = "https://www.youtube.com/embed/Ga3maNZ0x0w?rel=0&autoplay=0";
+function openStream(stream){
+  document.getElementById('videoStream').src = stream;
+};
+window.onload = openStream(openBloomberg);
 $(document).ready(function() {
   function getNews(){
     const yqlPoliti ="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'http%3A%2F%2Fwww.politico.com%2Frss%2Fpoliticopicks.xml')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
@@ -8,9 +16,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#politi").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p>" + description + "</p>");
+          $("#politi").append("<h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "\">" + title + "</a></h4><p>" + description + "</p>");
         }else{
-          $("#politi").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
+          $("#politi").append("<h4><a target=\"_blank\" rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
         }
       });
     }, "jsonp");
@@ -22,9 +30,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#hill").append("<h4><a rel=\" nofollow\"href=\" " + link + "  \">" + title + "</a></h4><p>" + description + "</p>");
+          $("#hill").append("<h4><a target=\"_blank\" rel=\" nofollow\" href=\" " + link + "  \">" + title + "</a></h4><p>" + description + "</p>");
         }else{
-          $("#hill").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
+          $("#hill").append("<h4><a target=\"_blank\" rel=\" nofollow\" href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
         }
       });
     }, "jsonp");
@@ -36,9 +44,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#wp").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p>" + description + "</p>");
+          $("#wp").append("<h4><a target=\"_blank\" rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p>" + description + "</p>");
         }else{
-          $("#wp").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
+          $("#wp").append("<h4><a target=\"_blank\" rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
         }
       });
     }, "jsonp");
@@ -50,9 +58,9 @@ $(document).ready(function() {
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $("#nyt").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p>" + description + "</p>");
+          $("#nyt").append("<h4><a target=\"_blank\" rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p>" + description + "</p>");
         }else{
-          $("#nyt").append("<h4><a rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
+          $("#nyt").append("<h4><a target=\"_blank\" rel=\" nofollow\"href=\"  " + link + "  \">" + title + "</a></h4><p> No summary given</p>");
         }
       });
     }, "jsonp");
@@ -61,10 +69,3 @@ $(document).ready(function() {
   window.onload = getNews;
   setInterval(getNews, 420000);
 });
-const bloomberg = "https://www.youtube.com/embed/Ga3maNZ0x0w";
-const skyNews = "https://www.youtube.com/embed/XOacA3RYrXk";
-const alJazeera = "https://www.youtube.com/embed/nVHt1_SWTZg";
-function openStream(stream){
-  document.getElementById('videoStream').src = stream;
-};
-window.onload = openStream(bloomberg);
