@@ -11,10 +11,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css">
-  <script src="/js/pwabuilder-sw-register.js"></script>
-  <script src="/js/pwabuilder-sw.js"></script>
-  <link rel="manifest" href="manifest.json"></link>
-  <script src="/js/manup.js"></script>
   <!--[if lt IE 9]>
   <script src="js/vendor/html5-3.6-respond-1.4.2.min.js"></script>
   <![endif]-->
@@ -33,59 +29,18 @@
       </nav>
     </section>
     <section role="navigation" aria-describedby="add other news feeds">
-      
+      <input id="rss-input" placeholder="rss feed" />
+      <button id="rss-submit">submit</button>
     </section>
     <footer>
       <a href="digitalroots.io">Built By digitalroots</a>
     </footer>
   </aside>
-  <main>
-    <section role="feed">
-      <header>
-        <h2>Politico</h2>
-      </header>
-      <article id='politi' aria-live="polite" tabindex="1">
-      </article>
-    </section>
-    <section role="feed">
-      <header>
-        <h2>The Hill</h2>
-      </header>
-      <article id='hill' aria-live="polite" tabindex="1">
-
-      </article>
-    </section>
-    <section role="feed">
-      <header>
-        <span><h2>Washington Post</h2><h3>Politics</h3></span>
-      </header>
-      <article id='wp' aria-live="polite" tabindex="1">
-
-      </article>
-    </section>
-    <section role="feed">
-      <header>
-        <span><h2>New York Times</h2>
-          <h3>Politics</h3></span>
-        </header>
-        <article id='nyt' aria-live="polite" tabindex="1">
-
-        </article>
-      </section>
+  <main id="rss-feed">
     </main>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
 
     <script src="js/main.js"></script>
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='//www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-      </script>
   </body>
 </html>
