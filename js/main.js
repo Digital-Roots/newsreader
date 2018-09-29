@@ -10,35 +10,35 @@ $(document).ready(function() {
 
 
 
-  const rssSubmitButton = document.getElementById('rss-submit');
+  // const rssSubmitButton = document.getElementById('rss-submit');
   const rssInput = document.getElementById('rss-input');
+  const rssTitle = document.getElementById('rss-title');
   const rssArray = [];
   const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'";
   const yqlBack = "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-
-
-
   $('#rss-submit').click(function(){
+    let rssName = rssTitle.value;
+    rssAnchor = rssName.replace(" ", "-");
     let rssURL = rssInput.value;
     rssURL = rssURL.replace(/:/g, "%3A").replace(/\//g, "%2F");
     rssURL = yqlFront + rssURL + yqlBack;
     rssArray.push(rssURL);
     console.log(rssArray);
-    rssURL = rssArray;
-    let rssLoop = $.getJSON(rssURL, function(data) {
+    let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></header>');
+    let rssLoop =+ $.getJSON(rssArray, function(data) {
       const res = data.query.results.item;
       res.forEach(function(x, y){
         let link = res[y].link;
         let title = res[y].title;
         let description = res[y].description;
         if(description !== null){
-          $('#rss-feed').append("<section role='feed'><header><h2>New Place Holder</h2></header><article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "\">" + title + "</a></h4><p>" + description + "</p></article></section>");
+          $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "\">" + title + "</a></h4><p>" + description + "</p></article>");
         }else{
-          $('#rss-feed').append("<section role='feed'><header><h2>New Place Holder</h2></header><article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "  \">" + title + "</a></h4><p> No summary given</p></article></section>");
+          $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "  \">" + title + "</a></h4><p> No summary given</p></article>");
         }
+        return rssLoop;
       });
     });
-    return rssLoop;
   });
 
 });
