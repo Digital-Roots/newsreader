@@ -2,15 +2,15 @@ const tvBloomberg = "https://www.youtube.com/embed/Ga3maNZ0x0w?rel=0&autoplay=1"
 const tvSkyNews = "https://www.youtube.com/embed/XOacA3RYrXk?rel=0&autoplay=1";
 const tvAlJazeera = "https://players.brightcove.net/665003303001/SkrZHHcl_default/index.html?videoId=5467349513001";
 const openBloomberg = "https://www.youtube.com/embed/Ga3maNZ0x0w?rel=0&autoplay=0";
+
 function openStream(stream){
   document.getElementById('videoStream').src = stream;
 };
+
 window.onload = openStream(openBloomberg);
+
 $(document).ready(function() {
 
-
-
-  // const rssSubmitButton = document.getElementById('rss-submit');
   const rssInput = document.getElementById('rss-input');
   const rssTitle = document.getElementById('rss-title');
   const rssArray = [];
@@ -24,21 +24,31 @@ $(document).ready(function() {
     rssURL = yqlFront + rssURL + yqlBack;
     rssArray.push(rssURL);
     console.log(rssArray);
+
     let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></header>');
-    let rssLoop =+ $.getJSON(rssArray, function(data) {
+
+     rssLoop =+ $.getJSON(rssArray, function(data) {
+
       const res = data.query.results.item;
+
       res.forEach(function(x, y){
+
         let link = res[y].link;
         let title = res[y].title;
         let description = res[y].description;
+
         if(description !== null){
           $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "\">" + title + "</a></h4><p>" + description + "</p></article>");
         }else{
           $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "  \">" + title + "</a></h4><p> No summary given</p></article>");
         }
+
+        rssLoop =+ '</section>';
         return rssLoop;
       });
     });
-  });
 
+
+
+  });
 });

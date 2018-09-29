@@ -129,6 +129,10 @@ textarea {
     min-width: 15rem;
     max-width: 17.375rem;
   }
+  [role="feed"] img{
+    display: none;
+    visibility: hidden;
+  }
   article{
     display: inline-block;
     visibility: visible;
@@ -159,7 +163,7 @@ textarea {
 
 }
 .show-inline{
-  
+
 }
 .visuallyhidden {
     border: 0;
