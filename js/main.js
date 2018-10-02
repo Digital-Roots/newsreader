@@ -9,7 +9,6 @@ function openStream(stream){
 
 window.onload = openStream(openBloomberg);
 
-const removeFeed = document.getElementById('removeButton');
 const rssInput = document.getElementById('rss-input');
 const rssTitle = document.getElementById('rss-title');
 const rssSubmit = document.getElementById('rss-submit');
