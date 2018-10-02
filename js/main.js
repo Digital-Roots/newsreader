@@ -26,7 +26,7 @@ $(document).ready(function() {
     rssURL = rssURL.replace(/:/g, "%3A").replace(/\//g, "%2F");
     rssURL = yqlFront + rssURL + yqlBack;
     rssArray.push(rssURL);
-    let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></br><button class="remove">remove</button></header></section>');
+    let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></br><button class="remove" value="' + rssURL +  '">remove</button></header></section>');
 
      rssLoop =+ $.getJSON(rssArray, function(data) {
 
@@ -50,4 +50,10 @@ $(document).ready(function() {
 });
 $(document).on('click', '.remove', function() {
     $(this).parent().parent().remove();
+    console.log('click');
+    index = rssArray.indexOf(this.value);
+    if(index != -1){
+      rssArray.splice(index, 1);
+      rssAnchor.remove();
+    }
 });
