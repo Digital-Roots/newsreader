@@ -54,6 +54,5 @@ $(document).on('click', '.remove', function() {
     index = rssArray.indexOf(this.value);
     if(index != -1){
       rssArray.splice(index, 1);
-      rssAnchor.remove();
     }
 });
