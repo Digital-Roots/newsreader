@@ -9,23 +9,25 @@ function openStream(stream){
 
 window.onload = openStream(openBloomberg);
 
+const removeFeed = document.getElementById('removeButton');
+const rssInput = document.getElementById('rss-input');
+const rssTitle = document.getElementById('rss-title');
+const rssSubmit = document.getElementById('rss-submit');
+const rssArray = [];
+let rssLoop;
+const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'";
+const yqlBack = "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+
 $(document).ready(function() {
 
-  const rssInput = document.getElementById('rss-input');
-  const rssTitle = document.getElementById('rss-title');
-  const rssArray = [];
-  const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'";
-  const yqlBack = "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-  $('#rss-submit').click(function(){
+  rssSubmit.addEventListener('click', function(){
     let rssName = rssTitle.value;
     rssAnchor = rssName.replace(" ", "-");
     let rssURL = rssInput.value;
     rssURL = rssURL.replace(/:/g, "%3A").replace(/\//g, "%2F");
     rssURL = yqlFront + rssURL + yqlBack;
     rssArray.push(rssURL);
-    console.log(rssArray);
-
-    let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></header>');
+    let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></br><button class="remove">remove</button></header></section>');
 
      rssLoop =+ $.getJSON(rssArray, function(data) {
 
@@ -42,13 +44,11 @@ $(document).ready(function() {
         }else{
           $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "  \">" + title + "</a></h4><p> No summary given</p></article>");
         }
-
-        rssLoop =+ '</section>';
         return rssLoop;
       });
     });
-
-
-
   });
+});
+$(document).on('click', '.remove', function() {
+    $(this).parent().parent().remove();
 });
