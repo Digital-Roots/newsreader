@@ -50,7 +50,6 @@ $(document).ready(function() {
 });
 $(document).on('click', '.remove', function() {
     $(this).parent().parent().remove();
-    console.log('click');
     index = rssArray.indexOf(this.value);
     if(index != -1){
       rssArray.splice(index, 1);
