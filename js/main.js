@@ -50,5 +50,10 @@ $(document).ready(function() {
   });
 });
 $(document).on('click', '.remove', function() {
-    $(this).parent().parent().remove();
+  $(this).parent().parent().remove();
+  index = rssArrayUrl.indexOf(this.value);
+  if(index != -1){
+    rssArrayUrl.splice(index, 1);
+    rssArrayTitle.splice(index, 1);
+  }
 });
