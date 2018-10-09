@@ -12,94 +12,53 @@ window.onload = openStream(openSkyNews);
 const rssInput = document.getElementById('rss-input');
 const rssTitle = document.getElementById('rss-title');
 const rssSubmit = document.getElementById('rss-submit');
-const rssArray = [];
+let rssArrayUrl = [];
+let rssArrayTitle = [];
 let rssLoop;
 let rssName = rssTitle.value;
 const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'";
 const yqlBack = "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 let rssURL = yqlFront + rssInput.value.replace(/:/g, "%3A").replace(/\//g, "%2F") + yqlBack;
 let rssAnchor = rssName.replace(" ", "-");
-let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></br><button class="remove" value="' + rssURL +  '">remove</button></header></section>');
 
-function getSaveRSS() {
-  var saves = localStorage.getItem('savedRSS');
-  if (saves) {
-    return JSON.parse(saves);
-  }
-  return [];
-};
-function storeSaveRSS(str) {
-  var saves = getSaveRSS();
-  if (saves.indexOf(str) > -1 || !str) {
-    return false;
-  }
-  saves.push(str);
-  localStorage.setItem('savedRSS', JSON.stringify(saves));
-  return true;
-};
 
 $(document).ready(function() {
-
   rssSubmit.addEventListener('click', function(){
-    rssArray.push(rssURL);
+    if(rssName !== ''){
+      rssArrayUrl.push(rssURL);
+      rssArrayTitle.push(rssName);
+      let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></br><button class="remove" value="' + rssURL +  '">remove</button></header></section>');
 
-    rssLoop =+ $.getJSON(rssArray, function(data) {
+      rssLoop =+ $.getJSON(rssArrayUrl, function(data) {
 
-      const res = data.query.results.item;
+        const res = data.query.results.item;
 
-      res.forEach(function(x, y){
+        res.forEach(function(x, y){
 
-        let link = res[y].link;
-        let title = res[y].title;
-        let description = res[y].description;
+          let link = res[y].link;
+          let title = res[y].title;
+          let description = res[y].description;
 
-        if(description !== null){
-          $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "\">" + title + "</a></h4><p>" + description + "</p></article>");
-        }else{
-          $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "  \">" + title + "</a></h4><p> No summary given</p></article>");
-        }
-        return rssLoop;
+          if(description !== null){
+            $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "\">" + title + "</a></h4><p>" + description + "</p></article>");
+          }else{
+            $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "  \">" + title + "</a></h4><p> No summary given</p></article>");
+          }
+          return rssLoop;
+        });
       });
-    });
+    }else{
+      alert('add title to add feed');
+    }
   });
 });
+
+
 $(document).on('click', '.remove', function() {
   $(this).parent().parent().remove();
-  index = rssArray.indexOf(this.value);
+  index = rssArrayUrl.indexOf(this.value);
   if(index != -1){
-    rssArray.splice(index, 1);
-    localStorage.setItem('savedRSS', JSON.stringify(rssArray));
-    return true;
+    rssArrayUrl.splice(index, 1);
+    rssArrayTitle.splice(index, 1);
   }
 });
-rssSubmit.addEventListener('click', function(){
-  storeSaveRSS(rssURL);
-})
-window.onload = function(){
-  let loadRSS = getSaveRSS();
-  if(loadRSS){
-    console.log('rssSaved');
-    rssArray.push(loadRSS);
-    rssLoop =+ $.getJSON(rssArray, function(data) {
-
-      const res = data.query.results.item;
-
-      res.forEach(function(x, y){
-
-        let link = res[y].link;
-        let title = res[y].title;
-        let description = res[y].description;
-
-        if(description !== null){
-          $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "\">" + title + "</a></h4><p>" + description + "</p></article>");
-        }else{
-          $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "  \">" + title + "</a></h4><p> No summary given</p></article>");
-        }
-        return rssLoop;
-      });
-    });
-    return true;
-  }else{
-    return false;
-  }
-};
