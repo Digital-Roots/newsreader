@@ -16,6 +16,7 @@ const rssSubmit = document.getElementById('rss-submit');
 const rssArrayUrl = [];
 const rssArrayTitle = [];
 let rssLoop;
+let rssName;
 const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'";
 const yqlBack = "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
@@ -23,14 +24,16 @@ $(document).ready(function() {
 
   rssSubmit.addEventListener('click', function(){
     let rssName = rssTitle.value;
+    if(rssName !== ''){
     rssAnchor = rssName.replace(" ", "-");
     let rssURL = rssInput.value;
     rssURL = rssURL.replace(/:/g, "%3A").replace(/\//g, "%2F");
     rssURL = yqlFront + rssURL + yqlBack;
-    rssArray.push(rssURL);
+    rssArrayUrl.push(rssURL);
+    rssArrayTitle.push(rssAnchor);
     let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></br><button class="remove">remove</button></header></section>');
 
-     rssLoop =+ $.getJSON(rssArray, function(data) {
+     rssLoop =+ $.getJSON(rssArrayUrl, function(data) {
 
       const res = data.query.results.item;
 
@@ -48,6 +51,9 @@ $(document).ready(function() {
         return rssLoop;
       });
     });
+  }else{
+    alert('add title to add feed');
+  }
   });
 });
 $(document).on('click', '.remove', function() {
