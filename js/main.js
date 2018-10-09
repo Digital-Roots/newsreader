@@ -19,6 +19,7 @@ const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%
 const yqlBack = "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 let rssURL = yqlFront + rssInput.value.replace(/:/g, "%3A").replace(/\//g, "%2F") + yqlBack;
 let rssAnchor = rssName.replace(" ", "-");
+let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></br><button class="remove" value="' + rssURL +  '">remove</button></header></section>');
 
 function getSaveRSS() {
   var saves = localStorage.getItem('savedRSS');
@@ -41,7 +42,6 @@ $(document).ready(function() {
 
   rssSubmit.addEventListener('click', function(){
     rssArray.push(rssURL);
-    let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></br><button class="remove" value="' + rssURL +  '">remove</button></header></section>');
 
     rssLoop =+ $.getJSON(rssArray, function(data) {
 
@@ -68,9 +68,38 @@ $(document).on('click', '.remove', function() {
   index = rssArray.indexOf(this.value);
   if(index != -1){
     rssArray.splice(index, 1);
-    //removeStoredRSS(index);
+    localStorage.setItem('savedRSS', JSON.stringify(rssArray));
+    return true;
   }
 });
 rssSubmit.addEventListener('click', function(){
   storeSaveRSS(rssURL);
 })
+window.onload = function(){
+  let loadRSS = getSaveRSS();
+  if(loadRSS){
+    console.log('rssSaved');
+    rssArray.push(loadRSS);
+    rssLoop =+ $.getJSON(rssArray, function(data) {
+
+      const res = data.query.results.item;
+
+      res.forEach(function(x, y){
+
+        let link = res[y].link;
+        let title = res[y].title;
+        let description = res[y].description;
+
+        if(description !== null){
+          $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "\">" + title + "</a></h4><p>" + description + "</p></article>");
+        }else{
+          $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "  \">" + title + "</a></h4><p> No summary given</p></article>");
+        }
+        return rssLoop;
+      });
+    });
+    return true;
+  }else{
+    return false;
+  }
+};
