@@ -19,13 +19,22 @@ const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%
 const yqlBack = "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 let rssURL = rssInput.value;
 
-// function getSave() {
-//   var Saved = localStorage.getItem('savesRSS');
-//   if (Saved) {
-//     return JSON.parse(Saved);
-//   }
-//   return [];
-// }
+function getSaveRSS() {
+  var saves = localStorage.getItem('savedRSS');
+  if (saves) {
+    return JSON.parse(saves);
+  }
+  return [];
+};
+function storeSaveRSS(rssURL) {
+  var searches = getRecentSearches();
+  if (searches.indexOf(rssURL) > -1 || !rssURL) {
+    return false;
+  }
+  searches.push(rssURL);
+  localStorage.setItem('savedRSS', JSON.stringify(rssURL));
+  return true;
+};
 
 $(document).ready(function() {
 
@@ -33,16 +42,6 @@ $(document).ready(function() {
     rssAnchor = rssName.replace(" ", "-");
     rssURL = rssURL.replace(/:/g, "%3A").replace(/\//g, "%2F");
     rssURL = yqlFront + rssURL + yqlBack;
-
-    // function saveRSS(rssURL) {
-    //   var Saved = getSave();
-    //   if (Saved.indexOf(rssURL) > -1 || !rssURL) {
-    //     return false;
-    //   }
-    //   Saved.push(rssURL);
-    //   localStorage.setItem('savesRSS', JSON.stringify(Saved));
-    //   return true;
-    // }
 
     rssArray.push(rssURL);
     let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></br><button class="remove" value="' + rssURL +  '">remove</button></header></section>');
