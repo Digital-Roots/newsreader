@@ -12,10 +12,17 @@ window.onload = openStream(openSkyNews);
 const rssInput = document.getElementById('rss-input');
 const rssTitle = document.getElementById('rss-title');
 const rssSubmit = document.getElementById('rss-submit');
+<<<<<<< HEAD
 let rssArrayUrl = [];
 let rssArrayTitle = [];
 let rssLoop;
 let rssName = rssTitle.value;
+=======
+const rssArrayUrl = [];
+const rssArrayTitle = [];
+let rssLoop;
+let rssName;
+>>>>>>> A2
 const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'";
 const yqlBack = "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 let rssURL = yqlFront + rssInput.value.replace(/:/g, "%3A").replace(/\//g, "%2F") + yqlBack;
@@ -24,6 +31,7 @@ let rssAnchor = rssName.replace(" ", "-");
 
 $(document).ready(function() {
   rssSubmit.addEventListener('click', function(){
+<<<<<<< HEAD
     if(rssName !== ''){
       rssArrayUrl.push(rssURL);
       rssArrayTitle.push(rssName);
@@ -50,6 +58,39 @@ $(document).ready(function() {
     }else{
       alert('add title to add feed');
     }
+=======
+    let rssName = rssTitle.value;
+    if(rssName !== ''){
+    rssAnchor = rssName.replace(" ", "-");
+    let rssURL = rssInput.value;
+    rssURL = rssURL.replace(/:/g, "%3A").replace(/\//g, "%2F");
+    rssURL = yqlFront + rssURL + yqlBack;
+    rssArrayUrl.push(rssURL);
+    rssArrayTitle.push(rssAnchor);
+    let rssloop = $('main').append('<section id="' + rssAnchor +'" role="feed"><header><h2>' + rssName + '</h2></br><button class="remove">remove</button></header></section>');
+
+     rssLoop =+ $.getJSON(rssArrayUrl, function(data) {
+
+      const res = data.query.results.item;
+
+      res.forEach(function(x, y){
+
+        let link = res[y].link;
+        let title = res[y].title;
+        let description = res[y].description;
+
+        if(description !== null){
+          $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "\">" + title + "</a></h4><p>" + description + "</p></article>");
+        }else{
+          $('#' + rssAnchor ).append("<article aria-live='polite' tabindex='1'><h4><a target=\"_blank\" rel=\"nofollow\" href=\"" + link + "  \">" + title + "</a></h4><p> No summary given</p></article>");
+        }
+        return rssLoop;
+      });
+    });
+  }else{
+    alert('add title to add feed');
+  }
+>>>>>>> A2
   });
 });
 
