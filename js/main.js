@@ -12,15 +12,24 @@ window.onload = openStream(openSkyNews);
 const rssInput = document.getElementById('rss-input');
 const rssTitle = document.getElementById('rss-title');
 const rssSubmit = document.getElementById('rss-submit');
-const rssArrayUrl = [];
-const rssArrayTitle = [];
-const rss2D = [];
+let rssLoop, rssName, rssURL;
+const yql = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'" + rssURL + "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+const rssArrayUrl = [], rssArrayTitle = []
+const rss2D = localStorage.getItem('savedFeed') ? JSON.parse(localStorage.getItem('savedFeed')) : [];
+
+
+
 function two1DTo2D (urlArray, titleArray, newArray){
     newArray.push([titleArray, urlArray]);
-};
-let rssLoop, rssName;
-const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'";
-const yqlBack = "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+  };
+function indexOf2dArray(array, item){
+  for(let i = 0; i < array.length; i++){
+    if(array[i][0] == item[0] && array[0][i] == item[1]){
+      return true;
+      }
+    }
+    return false;
+  };
 
 
 $(document).ready(function() {
@@ -29,16 +38,14 @@ $(document).ready(function() {
     if(rssName !== ''){
       rssAnchor = rssName.replace(" ", "-");
     }
-    let rssYQL = yqlFront + rssInput.value.replace(/:/g, "%3A").replace(/\//g, "%2F") + yqlBack;
+    rssURL = rssInput.value.replace(/:/g, "%3A").replace(/\//g, "%2F");
+    two1DTo2D(yql, rssAnchor, rss2D);
 
-
-
-    if(){
-
-    }else{
-      two1DTo2D(rssYQL, rssAnchor, rss2D);
+    if(indexOf2dArray(rss2D, [rssAnchor, yql]) == false){
+      localStorage.setItem('savedFeed', JSON.stringify(rss2D));
       console.log(rss2D);
-      rssLoop +=  $.getJSON(rssYQL, function(data) {
+      $('#feed-nav').append("<div class='button-row'><button id='"+ rssAnchor +"'>"+ rssName +"</button><button class='remove'>remove</button></div>");
+      rssLoop +=  $.getJSON(yql, function(data) {
 
         const res = data.query.results.item;
 
