@@ -9,62 +9,89 @@ function openStream(stream){
 
 window.onload = openStream(openSkyNews);
 
-const rssInput = document.getElementById('rss-input');
-const rssTitle = document.getElementById('rss-title');
-const rssSubmit = document.getElementById('rss-submit');
-let rssLoop, rssName, rssURL;
-const yql = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20(url%3D'" + rssURL + "')&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+const rssInput = document.getElementById('rss-input'),
+rssTitle = document.getElementById('rss-title'),
+rssSubmit = document.getElementById('rss-submit');
+let rssLoop, rssName, rssURL, rssAnchor, yql;
+const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20title%2Clink%20from%20rss%20where%20url%20%3D%20'";
+const yqlBack = "'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 const rssArrayUrl = [], rssArrayTitle = [];
 const rss2D = localStorage.getItem('savedFeed') ? JSON.parse(localStorage.getItem('savedFeed')) : [];
 
 
-
 function two1DTo2D (urlArray, titleArray, newArray){
-    newArray.push([titleArray, urlArray]);
-  };
+  newArray.push([titleArray, urlArray]);
+};
 function indexOf2dArray(array, item){
   for(let i = 0; i < array.length; i++){
     if(array[i][0] == item[0] && array[i][1] == item[1]){
       return true;
-      }
     }
-    return false;
-  };
+  }
+  return false;
+};
+function localLoad(localSave){
 
+  for(let i = 0; i < localSave.length; i++){
 
-$(document).ready(function() {
-  rssSubmit.addEventListener('click', function(){
-    let rssName = rssTitle.value;
-    if(rssName !== ''){
-      rssAnchor = rssName.replace(" ", "-");
-    }
-    rssURL = rssInput.value.replace(/:/g, "%3A").replace(/\//g, "%2F");
-
-    console.log(indexOf2dArray(rss2D, [rssAnchor, yql]));
-    if(indexOf2dArray(rss2D, [rssAnchor, yql]) === false){
-      two1DTo2D(yql, rssAnchor, rss2D);
-      localStorage.setItem('savedFeed', JSON.stringify(rss2D));
-      console.log(rss2D);
-      $('#feed-nav').append("<div class='button-row'><button id='"+ rssAnchor +"'>"+ rssName +"</button><button class='remove'>remove</button></div>");
-      rssLoop +=  $.getJSON(yql, function(data) {
-        console.log(data);
-        const res = data.query.results.item;
-
+    rssName = localSave[i][0].replace('-', ' ');
+    $('#feed-nav').append("<div class='button-row'><button id='"+ localSave[i][0] +"'>"+ rssName +"</button><button class='remove'>remove</button></div>");
+    rssLoop =  $.getJSON(localSave[i][1], function(data) {
+      console.log(data);
+      let res = data.query.results;
+      if(res){
+        res = res.item;
         res.forEach(function(x, y){
 
           let link = res[y].link;
           let title = res[y].title;
           let description = res[y].description;
           let date = res[y].pubDate;
-          $('main').append("<div class='lisItem "+ rssAnchor +"'><a class='feed' href='" + link + "''><span class='site'>" + rssName + " </span><span class='title'>" + title + " </span><span class='date'>"+ date +" </span></a></div>");
+          $('main').append("<div class='lisItem "+ localSave[i][0] +"'><a class='feed' href='" + link + "''><span class='site'>" + rssName + " </span><span class='title'>" + title + " </span><span class='date'>"+ date +" </span></a></div>");
         });
+      }
+    });
+
+  }
+
+};
+
+$(document).ready(function() {
+  rssSubmit.addEventListener('click', function(){
+    rssName = rssTitle.value;
+    if(rssName !== ''){
+      rssAnchor = rssName.replace(" ", "-");
+    }
+    rssURL = rssInput.value;
+    rssURL = rssURL.replace(/:/g, "%3A").replace(/\//g, "%2F");
+    yql = yqlFront + rssURL + yqlBack;
+
+    if(indexOf2dArray(rss2D, [rssAnchor, yql]) === false){
+      two1DTo2D(yql, rssAnchor, rss2D);
+      localStorage.setItem('savedFeed', JSON.stringify(rss2D));
+      console.log(rss2D);
+      $('#feed-nav').append("<div class='button-row'><button id='"+ rssAnchor +"'>"+ rssName +"</button><button class='remove'>remove</button></div>");
+      rssLoop =  $.getJSON(yql, function(data) {
+        console.log(data);
+        let res = data.query.results;
+        if(res){
+          res = res.item;
+          res.forEach(function(x, y){
+
+            let link = res[y].link;
+            let title = res[y].title;
+            let description = res[y].description;
+            let date = res[y].pubDate;
+            $('main').append("<div class='lisItem "+ rssAnchor +"'><a class='feed' href='" + link + "''><span class='site'>" + rssName + " </span><span class='title'>" + title + " </span><span class='date'>"+ date +" </span></a></div>");
+          });
+        }
       });
     }
   });
 });
 
+window.onload = localLoad(rss2D);
 
 $(document).on('click', '.remove', function() {
-
 
 });

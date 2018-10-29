@@ -124,6 +124,10 @@ textarea {
   nav{
 
   }
+  #feed-nav{
+    display: flex;
+    flex-flow: column;
+  }
 }
 @media print,
        (-o-min-device-pixel-ratio: 5/4),
