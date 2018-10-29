@@ -110,6 +110,7 @@ textarea {
   }
   main{
     overflow-y: scroll;
+    width: 100%;
   }
   [role="feed"]{
 

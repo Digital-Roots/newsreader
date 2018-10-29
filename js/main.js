@@ -22,6 +22,14 @@ const rss2D = localStorage.getItem('savedFeed') ? JSON.parse(localStorage.getIte
 function two1DTo2D (urlArray, titleArray, newArray){
   newArray.push([titleArray, urlArray]);
 };
+function splice2dArray(array, item){
+  for(let i = 0; i < array.length; i++){
+    if(array[i][0] == item){
+      let index = i;
+      array.splice(index, 1);
+    }
+  }
+};
 function indexOf2dArray(array, item){
   for(let i = 0; i < array.length; i++){
     if(array[i][0] == item[0] && array[i][1] == item[1]){
@@ -35,7 +43,7 @@ function localLoad(localSave){
   for(let i = 0; i < localSave.length; i++){
 
     rssName = localSave[i][0].replace('-', ' ');
-    $('#feed-nav').append("<div class='button-row'><button id='"+ localSave[i][0] +"'>"+ rssName +"</button><button class='remove'>remove</button></div>");
+    $('#feed-nav').append("<div class='button-row "+ localSave[i][0] +"'><button>"+ rssName +"</button><button class='remove' value='"+localSave[i][0]+"'>remove</button></div>");
     rssLoop =  $.getJSON(localSave[i][1], function(data) {
       console.log(data);
       let res = data.query.results;
@@ -46,16 +54,15 @@ function localLoad(localSave){
           let link = res[y].link;
           let title = res[y].title;
           let description = res[y].description;
-          let date = res[y].pubDate;
-          $('main').append("<div class='lisItem "+ localSave[i][0] +"'><a class='feed' href='" + link + "''><span class='site'>" + rssName + " </span><span class='title'>" + title + " </span><span class='date'>"+ date +" </span></a></div>");
+          let date = res[y].pubDate ? "<span class='date'>"+ res[y].pubDate  +" </span></div> " : '';
+          $('main').append("<div class='lisItem "+ localSave[i][0] +"'><span class='site'>" + rssName + " </span><a class='feed' href='" + link + "''><span class='title'>" + title + " </span></a>" + date);
         });
       }
+
     });
 
-  }
-
+  };
 };
-
 $(document).ready(function() {
   rssSubmit.addEventListener('click', function(){
     rssName = rssTitle.value;
@@ -70,7 +77,7 @@ $(document).ready(function() {
       two1DTo2D(yql, rssAnchor, rss2D);
       localStorage.setItem('savedFeed', JSON.stringify(rss2D));
       console.log(rss2D);
-      $('#feed-nav').append("<div class='button-row'><button id='"+ rssAnchor +"'>"+ rssName +"</button><button class='remove'>remove</button></div>");
+      $('#feed-nav').append("<div class='button-row "+ rssAnchor +"'><button>"+ rssName +"</button><button class='remove' value='"+rssAnchor+"'>remove</button></div>");
       rssLoop =  $.getJSON(yql, function(data) {
         console.log(data);
         let res = data.query.results;
@@ -81,8 +88,8 @@ $(document).ready(function() {
             let link = res[y].link;
             let title = res[y].title;
             let description = res[y].description;
-            let date = res[y].pubDate;
-            $('main').append("<div class='lisItem "+ rssAnchor +"'><a class='feed' href='" + link + "''><span class='site'>" + rssName + " </span><span class='title'>" + title + " </span><span class='date'>"+ date +" </span></a></div>");
+            let date = res[y].pubDate ? "<span class='date'>"+ res[y].pubDate  +" </span></div> " : '';
+            $('main').append("<div class='lisItem "+ rssAnchor +"'><span class='site'>" + rssName + " </span><a class='feed' href='" + link + "''><span class='title'>" + title + " </span></a>" + date);
           });
         }
       });
@@ -93,5 +100,8 @@ $(document).ready(function() {
 window.onload = localLoad(rss2D);
 
 $(document).on('click', '.remove', function() {
-
+  $('div').remove('.'+ this.value);
+  let val = this.value;
+  splice2dArray(rss2D, val);
+  localStorage.setItem('savedFeed', JSON.stringify(rss2D));
 });
