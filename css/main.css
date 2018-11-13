@@ -129,9 +129,6 @@ textarea {
     display: flex;
     flex-flow: column;
   }
-  #searchInput{
-    width: 
-  }
 }
 @media print,
        (-o-min-device-pixel-ratio: 5/4),

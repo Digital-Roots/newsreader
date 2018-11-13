@@ -9,12 +9,12 @@ function openStream(stream){
 
 window.onload = openStream(openSkyNews);
 
-const input = document.getElementById('searchInput'),
-rssInput = document.getElementById('rss-input'),
+const rssInput = document.getElementById('rss-input'),
 rssTitle = document.getElementById('rss-title'),
 rssSubmit = document.getElementById('rss-submit');
 let rssLoop, rssName, rssURL, rssAnchor, yql;
-const yql = "https://query.yahooapis.com/v1/public/yql?q=select%20title%2Clink%20from%20rss%20where%20url%20%3D%20'" + rssURL + "'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20title%2Clink%20from%20rss%20where%20url%20%3D%20'";
+const yqlBack = "'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 const rssArrayUrl = [], rssArrayTitle = [];
 const rss2D = localStorage.getItem('savedFeed') ? JSON.parse(localStorage.getItem('savedFeed')) : [];
 
@@ -33,12 +33,10 @@ function splice2dArray(array, item){
 function indexOf2dArray(array, item){
   for(let i = 0; i < array.length; i++){
     if(array[i][0] == item[0] && array[i][1] == item[1]){
-      let index = i;
-      return index;
+      return true;
     }
   }
-  let index = -1;
-  return index;
+  return false;
 };
 function localLoad(localSave){
 
@@ -57,7 +55,7 @@ function localLoad(localSave){
           let title = res[y].title;
           let description = res[y].description;
           let date = res[y].pubDate ? "<span class='date'>"+ res[y].pubDate  +" </span></div> " : '';
-          $('section').append("<div class='lisItem "+ localSave[i][0] +"'><span class='site'>" + rssName + " </span><a class='feed' href='" + link + "''><span class='title'>" + title + " </span></a>" + date);
+          $('main').append("<div class='lisItem "+ localSave[i][0] +"'><span class='site'>" + rssName + " </span><a class='feed' href='" + link + "''><span class='title'>" + title + " </span></a>" + date);
         });
       }
 
@@ -71,11 +69,14 @@ $(document).ready(function() {
     if(rssName !== ''){
       rssAnchor = rssName.replace(" ", "-");
     }
-    rssURL = rssInput.value.replace(/:/g, "%3A").replace(/\//g, "%2F");
+    rssURL = rssInput.value;
+    rssURL = rssURL.replace(/:/g, "%3A").replace(/\//g, "%2F");
+    yql = yqlFront + rssURL + yqlBack;
 
     if(indexOf2dArray(rss2D, [rssAnchor, yql]) === false){
       two1DTo2D(yql, rssAnchor, rss2D);
       localStorage.setItem('savedFeed', JSON.stringify(rss2D));
+      console.log(rss2D);
       $('#feed-nav').append("<div class='button-row "+ rssAnchor +"'><button>"+ rssName +"</button><button class='remove' value='"+rssAnchor+"'>remove</button></div>");
       rssLoop =  $.getJSON(yql, function(data) {
         console.log(data);
@@ -88,7 +89,7 @@ $(document).ready(function() {
             let title = res[y].title;
             let description = res[y].description;
             let date = res[y].pubDate ? "<span class='date'>"+ res[y].pubDate  +" </span></div> " : '';
-            $('section').append("<div class='lisItem "+ rssAnchor +"'><span class='site'>" + rssName + " </span><a class='feed' href='" + link + "''><span class='title'>" + title + " </span></a>" + date);
+            $('main').append("<div class='lisItem "+ rssAnchor +"'><span class='site'>" + rssName + " </span><a class='feed' href='" + link + "''><span class='title'>" + title + " </span></a>" + date);
           });
         }
       });
@@ -99,23 +100,8 @@ $(document).ready(function() {
 window.onload = localLoad(rss2D);
 
 $(document).on('click', '.remove', function() {
+  $('div').remove('.'+ this.value);
   let val = this.value;
-  $('div').remove('.'+ val);
   splice2dArray(rss2D, val);
   localStorage.setItem('savedFeed', JSON.stringify(rss2D));
-});
-
-input.addEventListener('keyup', function filterSearch(){
-  let i, title,
-    filter = input.value.toUpperCase();
-  const section = document.getElementByTagName('section'),
-    lisItem = section.getElementsByClassName('lisItem');
-  for (i = 0; i < listItem.length; i++){
-    title = document.getElementsByClassName('title')[0];
-    if(title.innerHTML.toUpperCase().indexOf(filter) > -1){
-      lisItem[i].style.display = '';
-    }else{
-      lisItem[i].style.display = 'none';
-    }
-  }
 });
