@@ -43,7 +43,7 @@ function localLoad(localSave){
   for(let i = 0; i < localSave.length; i++){
 
     rssName = localSave[i][0].replace('-', ' ');
-    $('#feed-nav').append("<div class='button-row "+ localSave[i][0] +"'><button>"+ rssName +"</button><button class='remove' value='"+localSave[i][0]+"'>remove</button></div>");
+    $('#feed-nav').append("<div class='button-row "+ localSave[i][0] +"'><button value='"+localSave[i][0]+"'>"+ rssName +"</button><button class='remove' value='"+localSave[i][0]+"'>remove</button></div>");
     rssLoop =  $.getJSON(localSave[i][1], function(data) {
       console.log(data);
       let res = data.query.results;
@@ -77,7 +77,7 @@ $(document).ready(function() {
       two1DTo2D(yql, rssAnchor, rss2D);
       localStorage.setItem('savedFeed', JSON.stringify(rss2D));
       console.log(rss2D);
-      $('#feed-nav').append("<div class='button-row "+ rssAnchor +"'><button>"+ rssName +"</button><button class='remove' value='"+rssAnchor+"'>remove</button></div>");
+      $('#feed-nav').append("<div class='button-row "+ rssAnchor +"'><button value='"+rssAnchor+"'>"+ rssName +"</button><button class='remove' value='"+rssAnchor+"'>remove</button></div>");
       rssLoop =  $.getJSON(yql, function(data) {
         console.log(data);
         let res = data.query.results;
