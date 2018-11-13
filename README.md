@@ -1,8 +1,10 @@
-# newsreaders
-RSS reader built with javascript with the goal to make a cross platform RSS reader for desktop and moblie. 
+# Newsreaders
+Is an open source rss reader using html, css, and javascript to create a Minimum Viable Product that can be expaned by web designers or developers you can visit the rss website at ![newsreaders.today](newsreaders.today) or download it for your desktop
 
-### Current State
-New Readers is right now a browser based app in early development and is missing basic function mostly remove and save. It uses Jquery and html.
+#### Linux: ![Download](https://github.com/Digital-Roots/newsreaders/raw/master/NewReadersApps/news-readers-today)
 
+#### Windows: ![Download](https://github.com/Digital-Roots/newsreaders/raw/master/NewReadersApps/News%20Readers%20Today.exe)
+
+#### Mac: ![Download](https://github.com/Digital-Roots/newsreaders/tree/master/NewReadersApps/News%20Readers%20Today-darwin-x64/News%20Readers%20Today.app/Contents)
 
 
