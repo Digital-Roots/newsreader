@@ -12,7 +12,7 @@ window.onload = openStream(openSkyNews);
 const rssInput = document.getElementById('rss-input'),
 rssTitle = document.getElementById('rss-title'),
 rssSubmit = document.getElementById('rss-submit');
-let rssLoop, rssName, rssURL, rssAnchor, yql;
+let rssLoop, rssName, rssURL, rssAnchor;
 const yqlFront = "https://query.yahooapis.com/v1/public/yql?q=select%20title%2Clink%20from%20rss%20where%20url%20%3D%20'";
 const yqlBack = "'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 const rssArrayUrl = [], rssArrayTitle = [];
