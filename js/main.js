@@ -55,7 +55,7 @@ function localLoad(localSave){
           let title = res[y].title;
           let description = res[y].description;
           let date = res[y].pubDate ? "<span class='date'>"+ res[y].pubDate  +" </span></div> " : '';
-          $('main').append("<div class='lisItem "+ localSave[i][0] +"'><span class='site'>" + rssName + " </span><a class='feed' href='" + link + "''><span class='title'>" + title + " </span></a>" + date);
+          $('#feedList').append("<div class='lisItem "+ localSave[i][0] +"'><span class='site'>" + rssName + " </span><a class='feed' href='" + link + "''><span class='title'>" + title + " </span></a>" + date);
         });
       }
 
@@ -63,6 +63,7 @@ function localLoad(localSave){
 
   };
 };
+
 $(document).ready(function() {
   rssSubmit.addEventListener('click', function(){
     rssName = rssTitle.value;
@@ -89,12 +90,18 @@ $(document).ready(function() {
             let title = res[y].title;
             let description = res[y].description;
             let date = res[y].pubDate ? "<span class='date'>"+ res[y].pubDate  +" </span></div> " : '';
-            $('main').append("<div class='lisItem "+ rssAnchor +"'><span class='site'>" + rssName + " </span><a class='feed' href='" + link + "''><span class='title'>" + title + " </span></a>" + date);
+            $('#feedList').append("<div class='lisItem "+ rssAnchor +"'><span class='site'>" + rssName + " </span><a class='feed' href='" + link + "''><span class='title'>" + title + " </span></a>" + date);
           });
         }
       });
     }
   });
+  $("#searchInput").on("keyup", function() {
+   let value = $(this).val().toLowerCase();
+   $("#feedList .lisItem").filter(function() {
+     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+   });
+  })
 });
 
 window.onload = localLoad(rss2D);
